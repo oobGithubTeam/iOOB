@@ -66,3 +66,18 @@ for iterator in range(3):
     print("metrics name:", metric_names[iterator], "\nStatistically significantly better:\n", stat_better_table, "\n")
 
     np.save(stat_better_table_for_metrics[iterator], stat_better_table)
+    
+# create results.csv
+result_recall = np.genfromtxt("gradual_recall.csv", delimiter=",")
+result_specificity = np.genfromtxt("gradual_specificity.csv", delimiter=",")
+result_bac = np.genfromtxt("gradual_bac.csv", delimiter=",")
+recall_mean = np.mean(result_recall, axis=1)
+specificity_mean = np.mean(result_specificity, axis=1)
+bac_mean = np.mean(result_bac, axis=1)
+
+results = [
+    recall_mean.tolist(),
+    specificity_mean.tolist(),
+    bac_mean.tolist(),
+]
+np.savetxt("results.csv", results, delimiter=",")
